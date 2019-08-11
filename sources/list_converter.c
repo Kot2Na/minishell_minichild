@@ -1,53 +1,54 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.c                                             :+:      :+:    :+:   */
+/*   list_converter.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/09 20:39:09 by crycherd          #+#    #+#             */
-/*   Updated: 2019/08/11 00:03:17 by crycherd         ###   ########.fr       */
+/*   Created: 2019/08/10 22:59:24 by crycherd          #+#    #+#             */
+/*   Updated: 2019/08/11 05:50:55 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minish.h"
 
-int		check_exist(char **path, char *com)
+t_lst	*cnvrt_to_lst(char **array)
 {
-	int i;
-	int	result;
-	char *box;
+	t_lst	*list;
+	int		i;
 
 	i = 0;
-	result = 0;
-	while (path[i])
+	list = NULL;
+	if (array)
 	{
-		box = join_three(path[i], "/", com);
-		if (!access(box, F_OK))
+		while (array[i])
 		{
-			result = 1;
-			free(box);
-			break ;
+			to_end(&list, new_lst(array[i]));
+			i++;
 		}
-		free(box);
-		i++;
-	}
-	return (result);
+	}	
+	return (list);
 }
 
-char		*path_to_bin(char **path, char *com)
+char	**cnvrt_to_arr(t_lst *list)
 {
+	char **result;
 	int i;
-	char *box;
+	int n;
 
 	i = 0;
-	while (path[i])
+	result = NULL;
+	n = count_list(list) + 1;
+	if ((result = (char **)malloc(sizeof(char *) * n)))
 	{
-		box = join_three(path[i], "/", com);
-		if (!access(box, F_OK))
-			return (box);
-		free(box);
-		i++;
+		while (list)
+		{
+			result[i] = ft_strdup(list->data);
+			list = list->next;
+			i++;
+		}
+		ft_putchar('\n');
+		result[i] = NULL;
 	}
-	return (NULL);
+	return (result);
 }

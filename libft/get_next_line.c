@@ -6,7 +6,7 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 22:18:16 by crycherd          #+#    #+#             */
-/*   Updated: 2019/08/09 21:13:27 by crycherd         ###   ########.fr       */
+/*   Updated: 2019/08/09 21:55:25 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,12 @@ static void		*new_content(char *safe, char *buf, size_t size)
 {
 	char *str;
 
-	str = ft_strnew(ft_strlen(safe) + size + 1);
-	str = ft_strcat(str, safe);
+	str = NULL;
+	if (safe != NULL)
+	{
+		str = ft_strnew(ft_strlen(safe) + size + 1);
+		str = ft_strcat(str, safe);
+	}
 	if (buf)
 		str = ft_strncat(str, buf, size);
 	return (str);

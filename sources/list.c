@@ -6,7 +6,7 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 15:10:10 by crycherd          #+#    #+#             */
-/*   Updated: 2019/08/09 20:29:28 by crycherd         ###   ########.fr       */
+/*   Updated: 2019/08/10 22:59:48 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,22 +88,4 @@ char	*find_var(t_lst *head, char *find)
 		head = head->next;
 	}
 	return (result);
-}
-
-t_lst	*cnvrt_to_lst(char **array)
-{
-	t_lst	*list;
-	int		i;
-
-	i = 0;
-	list = NULL;
-	if (array)
-	{
-		while (array[i])
-		{
-			to_end(&list, new_lst(array[i]));
-			i++;
-		}
-	}	
-	return (list);
 }

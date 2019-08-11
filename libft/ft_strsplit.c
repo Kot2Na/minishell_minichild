@@ -6,7 +6,7 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 20:37:30 by crycherd          #+#    #+#             */
-/*   Updated: 2019/05/24 17:55:37 by crycherd         ###   ########.fr       */
+/*   Updated: 2019/08/10 22:35:34 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ static char		*ft_memwrd(char const *s, char c, size_t *st)
 	if (s)
 	{
 		len = 0;
-		while (s[*st] == c)
+		while (s[*st] == c || s[*st] == '\t')
 			(*st)++;
-		while (s[*st + len] != c && s[*st + len])
+		while (s[*st + len] != c && s[*st + len] != '\t' && s[*st + len])
 			len++;
 		if ((word = (char *)malloc(sizeof(char) * len + 1)))
 		{
