@@ -6,7 +6,7 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 19:57:55 by crycherd          #+#    #+#             */
-/*   Updated: 2019/08/11 05:52:29 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/01/22 23:59:41 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 void	run_command(char **argv, char **path,  t_lst *list)
 {
-	char *track;
-	char **env;
-	int i;
+	char	*track;
+	char	**env;
+	int		status;
+	pid_t	pid;
 
-	i = 0;
 	if ((track = path_to_bin(path, argv[0])))
 	{
 		env = cnvrt_to_arr(list);
-		while(env[i])
+		pid = fork();
+		if (pid == 0)
 		{
-			ft_putstr(env[i]);
-			ft_putchar('\n');
-			i++;
+			execve(track, argv, env);
 		}
+		waitpid(pid, &status, 0);
 		free(track);
 		del_double_arr(env);
 	}
@@ -47,7 +47,6 @@ void	env_com(char *av, t_lst *list)
 	i = 0;
 	path = ft_strsplit(find_var(list, "PATH"), ':');
 	argv = ft_strsplit(av, ' ');
-
 	if (!check_path(argv[0]))
 	{
 		run_command(argv, path, list);
