@@ -6,7 +6,7 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 21:03:32 by crycherd          #+#    #+#             */
-/*   Updated: 2019/08/11 05:48:55 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/01/24 21:00:13 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,10 @@ int	check_path(char *str)
 {
 	int i;
 
+	if (ft_strcmp(str, ".") == 0)
+		return (1);
+	if (ft_strcmp(str, "..") == 0)
+		return (1);
 	i = 0;
 	while (str[i])
 	{

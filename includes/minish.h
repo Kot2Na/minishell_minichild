@@ -6,7 +6,7 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/08 04:41:11 by crycherd          #+#    #+#             */
-/*   Updated: 2019/08/10 23:50:42 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/01/24 21:40:37 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,15 @@
 #include "libft.h"
 #include "sys/wait.h"
 #include "sys/types.h"
+#include "sys/stat.h"
 
 typedef struct		s_lst
 {
 	char			*data;
 	struct s_lst	*next;
 }					t_lst;
+
+typedef struct stat t_stat;
 
 t_lst				*new_lst(char *content);
 t_lst				*cnvrt_to_lst(char **array);
