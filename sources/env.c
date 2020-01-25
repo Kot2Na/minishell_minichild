@@ -6,7 +6,7 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 19:57:55 by crycherd          #+#    #+#             */
-/*   Updated: 2020/01/24 22:09:33 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/01/25 21:10:51 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	run_command(char **argv, char **path,  t_lst *list)
 	}
 }
 
-void to_file_or_dir(char **argv, char **path, t_lst *list)
+t_lst	*to_file_or_dir(char **argv, char **path, t_lst *list)
 {
 	t_stat	file;
 
@@ -57,9 +57,10 @@ void to_file_or_dir(char **argv, char **path, t_lst *list)
 	}
 	else
 		ft_putstr("file or dir not exist\n");
+	return (list);
 }
 
-void	env_com(char *av, t_lst *list)
+t_lst	*env_com(char *av, t_lst *list)
 {
 	char **path;
 	char **argv;
@@ -70,12 +71,20 @@ void	env_com(char *av, t_lst *list)
 	argv = ft_strsplit(av, ' ');
 	if (!check_path(argv[0]))
 	{
-		run_command(argv, path, list);
+		if (ft_strcmp(argv[0], "cd") == 0)
+		{
+			list = change_pwd(argv, list);
+		}
+		else 
+		{
+			run_command(argv, path, list);
+		}
 	}
 	else
 	{
-		to_file_or_dir(argv, path, list);
+		list = to_file_or_dir(argv, path, list);
 	}
 	del_double_arr(path);
 	del_double_arr(argv);
+	return (list);
 }

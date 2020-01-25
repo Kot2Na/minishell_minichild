@@ -6,7 +6,7 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 21:03:32 by crycherd          #+#    #+#             */
-/*   Updated: 2020/01/24 21:00:13 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/01/25 21:47:56 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,27 @@ char *join_three(char *fr, char *sc, char *th)
 		free(fr);
 	}
 	return (box);
+}
+
+char *join_lst_to_path(t_lst *list)
+{
+	char *sub;
+	char *str;
+
+	str = ft_strdup("/");
+	if (list)
+	{
+		free(str);
+		str = ft_strdup("");
+		while (list)
+		{
+			sub = str;
+			str = join_three(str, "/", list->data);
+			free(sub);
+			list = list->next;
+		}
+	}
+	return (str);
 }
 
 void del_double_arr(char **arr)
@@ -68,6 +89,19 @@ int count_list(t_lst *list)
 	{
 		i++;
 		list = list->next;
+	}
+	return (i);
+}
+
+int	count_arr(char **arr)
+{
+	int i;
+
+	i = 0;
+	if (arr)
+	{
+		while (arr[i])
+			i++;
 	}
 	return (i);
 }

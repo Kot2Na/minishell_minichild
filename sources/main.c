@@ -6,7 +6,7 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/08 04:39:22 by crycherd          #+#    #+#             */
-/*   Updated: 2019/08/10 22:47:47 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/01/25 20:08:02 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int main(int ac, char **av, char **env)
 		ft_putstr("->");
 		if ((i = get_next_line(0, &line)))
 		{
-			env_com(line, list);
+			list = env_com(line, list);
 			if (ft_strcmp("exit", line) == 0)
 			{
 				free(line);

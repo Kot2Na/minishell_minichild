@@ -6,7 +6,7 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 15:10:10 by crycherd          #+#    #+#             */
-/*   Updated: 2019/08/10 22:59:48 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/01/25 21:46:27 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,28 @@ void	lst_del(t_lst *head)
 		lst_del(head->next);
 		free(head->data);
 		free(head);
+	}
+}
+
+void	lst_del_last(t_lst **head)
+{
+	t_lst *iter;
+	t_lst *root;
+
+	if (head && *head)
+	{
+		iter = *head;
+		root = *head;
+		while (iter->next)
+			iter = iter->next;
+		while (root != iter && root->next != iter)
+			root = root->next;
+		free(iter->data);
+		free(iter);
+		if (iter != root)
+			root->next = NULL;
+		else
+			*head = NULL;
 	}
 }
 
