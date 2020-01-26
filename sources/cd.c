@@ -6,65 +6,92 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 19:52:11 by crycherd          #+#    #+#             */
-/*   Updated: 2020/01/25 23:30:01 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/01/27 02:53:08 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minish.h"
-#include <stdio.h>
 
-t_lst	*change_pwd(char **argv, t_lst *list)
+t_lst	*change_pwd(char *pwd, t_lst *list)
 {
-	char *str;
-	char **path;
-	char **pwd;
-	t_lst *pwd_list;
-	t_lst *iter;
 	t_stat	file;
-	int i;
+	char	*old_pwd;
+	char	*new_pwd;
 
-	if (count_arr(argv) < 3)
+	new_pwd = ft_strdup(pwd);
+	if (!(stat(new_pwd, &file)))
 	{
-		i = 0;
-		pwd = ft_strsplit(find_var(list, "PWD"), '/');
-		pwd_list = cnvrt_to_lst(pwd);
-		path = ft_strsplit(argv[1], '/');
-		while (path[i])
-		{
-			iter = pwd_list;
-			if (ft_strcmp(path[i], "..") == 0)
-			{
-				lst_del_last(&pwd_list);
-			}
-			else if (ft_strcmp(path[i], ".") != 0)
-			{
-				to_end(&pwd_list, new_lst(path[i]));
-			}
-			i++;
-		}
-		str = join_lst_to_path(pwd_list);
-		ft_putstr(str);
-		ft_putchar('\n');
-
-		if (!(stat(str, &file)))
-		{
-			if (S_ISDIR(file.st_mode) == 0)
-			{
-				ft_putstr("it is file\n");
-			}
-			else
-			{
-				ft_putstr("yea, let's change pwd\n");
-			}
-		}
+		if (S_ISDIR(file.st_mode) == 0)
+			ft_putstr("It is file\n");
 		else
 		{
-			ft_putstr("file or dir not exist\n");
+			old_pwd = ft_strdup(find_var(list, "PWD"));
+			list = ft_setenv(list, "PWD", new_pwd);
+			list = ft_setenv(list, "OLDPWD", old_pwd);
+			chdir(new_pwd);
+			free(old_pwd);
 		}
-
-		del_double_arr(pwd);
-		del_double_arr(path);
-		lst_del(pwd_list);
 	}
+	else
+		ft_putstr("File or dir not exist\n");
+	free(new_pwd);
+	return (list);
+}
+
+t_lst	*create_new_pwd(t_lst *pwd_list, char **path)
+{
+	int	i;
+
+	i = 0;
+	while (path[i])
+	{
+		if (ft_strcmp(path[i], "..") == 0)
+			lst_del_last(&pwd_list);
+		else if (ft_strcmp(path[i], ".") != 0)
+			to_end(&pwd_list, new_lst(path[i]));
+		i++;
+	}
+	return (pwd_list);
+}
+
+char	*prepare_to_change(char **argv, t_lst *list)
+{
+	char	**path_arr;
+	char	**pwd_arr;
+	t_lst	*pwd_list;
+	char 	*result;
+	
+	pwd_arr = ft_strsplit(find_var(list, "PWD"), '/');
+	path_arr = ft_strsplit(argv[1], '/');
+	pwd_list = cnvrt_to_lst(pwd_arr);
+	pwd_list = create_new_pwd(pwd_list, path_arr);
+	result = join_lst_to_path(pwd_list);
+	del_double_arr(pwd_arr);
+	del_double_arr(path_arr);
+	lst_del(pwd_list);
+	return (result);
+}
+
+t_lst	*cd_check(char **argv, t_lst *list)
+{
+	char	*new_pwd;
+
+	if (count_arr(argv) == 1)
+		list = change_pwd(find_var(list, "HOME"), list);
+	else if (count_arr(argv) == 2)
+	{
+		if (argv[1][0] == '/')
+			list = change_pwd(argv[1], list);
+		else if (argv[1][0] == '-' && argv[1][1] == '\0')
+			list = change_pwd(find_var(list, "OLDPWD"), list);
+		else
+		{
+			new_pwd = prepare_to_change(argv, list);
+			list = change_pwd(new_pwd, list);
+			free(new_pwd);
+		}
+	}
+	else
+		ft_putstr("too much argument for cd\n");
 	return (list);
 }

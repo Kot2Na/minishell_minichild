@@ -6,7 +6,7 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/08 04:41:11 by crycherd          #+#    #+#             */
-/*   Updated: 2020/01/25 23:30:04 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/01/26 23:47:05 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ typedef struct stat t_stat;
 t_lst				*new_lst(char *content);
 t_lst				*cnvrt_to_lst(char **array);
 t_lst				*env_com(char *av, t_lst *list);
-t_lst				*change_pwd(char **argv, t_lst *list);
+t_lst				*change_pwd(char *var, t_lst *list);
+t_lst				*cd_check(char **argv, t_lst *list);
+t_lst				*find_env(t_lst *list, char *name);
+t_lst				*ft_setenv(t_lst *list, char *name, char *str);
 char				*find_var(t_lst *head, char *find);
 char				*path_to_bin(char **path, char *com);
 char				*join_lst_to_path(t_lst *list);
