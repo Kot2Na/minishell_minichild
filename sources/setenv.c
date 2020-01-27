@@ -6,7 +6,7 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 19:10:04 by crycherd          #+#    #+#             */
-/*   Updated: 2020/01/26 22:09:09 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/01/27 03:08:01 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,30 @@ t_lst	*ft_setenv(t_lst *list, char *name, char *str)
 		to_end(&list, change);
 	}
 	return (list);
+}
+
+t_lst	*ft_unsetenv(t_lst *list, char *name)
+{
+	t_lst *del;
+	t_lst *change;
+
+	change = list;
+	if ((del = find_env(list, name)))
+	{
+		if (change == del)
+		{
+			change = del->next;
+			free(del->data);
+			free(del);
+		}
+		else
+		{
+			while (change->next != del)
+				change = change->next;
+			change->next = del->next;
+			free(del->data);
+			free(del);
+		}
+	}
+	return (change);
 }
