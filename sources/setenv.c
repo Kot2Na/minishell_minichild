@@ -6,7 +6,7 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 19:10:04 by crycherd          #+#    #+#             */
-/*   Updated: 2020/01/27 03:08:01 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/01/28 23:22:42 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,53 @@ t_lst	*find_env(t_lst *list, char *name)
 	return (iter);
 }
 
+void	print_env(t_lst *list)
+{
+	if (list)
+	{
+		while (list)
+		{
+			ft_putstr(list->data);
+			ft_putchar('\n');
+			list = list->next;
+		}
+	}
+}
+
+t_lst	*setenv_check(char **argv, t_lst *list)
+{
+	int i;
+	int j;
+
+	i = 1;
+	while (argv[i])
+	{
+		j = 0;
+		if (ft_strcmp(argv[0], "setenv") == 0)
+		{
+			while (argv[i][j])
+			{
+				if (argv[i][j] == '=')
+				{
+					argv[i][j] = '\0';
+					list = ft_setenv(list, argv[i], argv[i] + j + 1);
+				}
+				j++;
+			}
+		}
+		else
+		{
+			list = ft_unsetenv(list, argv[i]);
+		}
+		i++;
+	}
+	return (list);
+}
+
 t_lst	*ft_setenv(t_lst *list, char *name, char *str)
 {
 	t_lst	*change;
+	char	*save;
 
 	if ((change = find_env(list, name)))
 	{
@@ -43,8 +87,9 @@ t_lst	*ft_setenv(t_lst *list, char *name, char *str)
 	}
 	else
 	{
-		change = new_lst(join_three(name, "=", str));
-		to_end(&list, change);
+		save = join_three(name, "=", str);
+		to_end(&list, new_lst(save));
+		free(save);
 	}
 	return (list);
 }
@@ -62,6 +107,7 @@ t_lst	*ft_unsetenv(t_lst *list, char *name)
 			change = del->next;
 			free(del->data);
 			free(del);
+			return(change);
 		}
 		else
 		{
@@ -72,5 +118,5 @@ t_lst	*ft_unsetenv(t_lst *list, char *name)
 			free(del);
 		}
 	}
-	return (change);
+	return (list);
 }

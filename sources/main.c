@@ -6,44 +6,54 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/08 04:39:22 by crycherd          #+#    #+#             */
-/*   Updated: 2020/01/28 16:33:02 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/01/28 22:40:14 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minish.h"
 
-int main(int ac, char **av, char **env)
+int	minishell(t_lst *list)
 {
-	int i;
-	char *line;
-	char *subline;
-	t_lst *list;
-	t_lst *head;
+	int		i;
+	char	*line;
+	char	*save;
+	char	**arr;
 
-	i = 0;
-	line = NULL;
-	list = cnvrt_to_lst(env);
-	head = list;
 	while(1)
 	{
-		ft_putstr(av[0]);
+		ft_putstr("./minishell");
 		ft_putstr("->");
 		if ((i = get_next_line(0, &line)))
 		{
-			subline = line;
-			line = insert_var(subline, list);
-			//ft_putstr(line);
-			//ft_putchar('\n');
-			list = env_com(line, list);
-			if (ft_strcmp("exit", line) == 0)
+			arr = ft_strsplit(line, ';');
+			i = 0;
+			while (arr[i])
 			{
-				free(line);
-				break ;
+				save = arr[i];
+				arr[i] = insert_var(arr[i], list);
+				free(save);
+				list = env_com(arr[i], list);
+				if (ft_strcmp("exit", arr[i]) == 0)
+				{
+					free(line);
+					del_double_arr(arr);
+					return (0);
+				}
+				i++;
 			}
-			free(subline);
 			free(line);
+			del_double_arr(arr);
 		}
 	}
-	lst_del(head);
+	return (0);
+}
+
+int main(int ac, char **av, char **env)
+{
+	t_lst *list;
+
+	list = cnvrt_to_lst(env);
+	minishell(list);
+	lst_del(list);
 	return (0);
 }

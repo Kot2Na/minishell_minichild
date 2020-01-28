@@ -6,7 +6,7 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 15:10:10 by crycherd          #+#    #+#             */
-/*   Updated: 2020/01/26 20:20:00 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/01/28 22:35:39 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,10 @@ char	*find_var(t_lst *head, char *find)
 	size = ft_strlen(find);
 	while (head)
 	{
+		//ft_putstr(head->data);
+		//ft_putstr(" ");
+		//ft_putstr(find);
+		//ft_putstr("\n");
 		if (!ft_strncmp(find, head->data, size) && head->data[size] == '=')
 		{
 			result = head->data + size + 1;

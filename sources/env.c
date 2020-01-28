@@ -6,7 +6,7 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 19:57:55 by crycherd          #+#    #+#             */
-/*   Updated: 2020/01/26 23:02:32 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/01/28 22:50:50 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ void run_exe(char *path, char **argv, t_lst *list)
 	int		status;
 	int		i;
 
-	//ft_putstr(find_var(list, "PWD"));
-	//ft_putchar('\n');
 	env = cnvrt_to_arr(list);
 	pid = fork();
 	if (pid == 0)
@@ -78,7 +76,12 @@ t_lst	*env_com(char *av, t_lst *list)
 		{
 			list = cd_check(argv, list);
 		}
-		else 
+		else if (ft_strcmp(argv[0], "setenv") == 0 || \
+					ft_strcmp(argv[0], "unsetenv") == 0)
+		{
+			list = setenv_check(argv, list);
+		}
+		else
 		{
 			run_command(argv, path, list);
 		}
