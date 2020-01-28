@@ -6,7 +6,7 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/08 04:39:22 by crycherd          #+#    #+#             */
-/*   Updated: 2020/01/25 20:08:02 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/01/28 16:33:02 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int main(int ac, char **av, char **env)
 {
 	int i;
 	char *line;
+	char *subline;
 	t_lst *list;
 	t_lst *head;
 
@@ -29,12 +30,17 @@ int main(int ac, char **av, char **env)
 		ft_putstr("->");
 		if ((i = get_next_line(0, &line)))
 		{
+			subline = line;
+			line = insert_var(subline, list);
+			//ft_putstr(line);
+			//ft_putchar('\n');
 			list = env_com(line, list);
 			if (ft_strcmp("exit", line) == 0)
 			{
 				free(line);
 				break ;
 			}
+			free(subline);
 			free(line);
 		}
 	}

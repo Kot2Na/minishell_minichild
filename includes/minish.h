@@ -6,7 +6,7 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/08 04:41:11 by crycherd          #+#    #+#             */
-/*   Updated: 2020/01/26 23:47:05 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/01/28 13:46:22 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ char				*path_to_bin(char **path, char *com);
 char				*join_lst_to_path(t_lst *list);
 char				**cnvrt_to_arr(t_lst *list);
 char				*join_three(char *fr, char *sc, char *th);
+char				*insert_var(char *str, t_lst *list);
 void				to_end(t_lst **head, t_lst *nw);
 void				lst_del(t_lst *head);
 void				lst_del_last(t_lst **head);
