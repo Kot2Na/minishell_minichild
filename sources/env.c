@@ -6,11 +6,12 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 19:57:55 by crycherd          #+#    #+#             */
-/*   Updated: 2020/01/28 22:50:50 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/01/29 21:54:06 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minish.h"
+#include "stdio.h"
 
 void run_exe(char *path, char **argv, t_lst *list)
 {
@@ -21,6 +22,7 @@ void run_exe(char *path, char **argv, t_lst *list)
 
 	env = cnvrt_to_arr(list);
 	pid = fork();
+	kill_pid = pid;
 	if (pid == 0)
 	{
 		execve(path, argv, env);
@@ -34,14 +36,16 @@ void	run_command(char **argv, char **path,  t_lst *list)
 {
 	char	*track;
 
-	if ((track = path_to_bin(path, argv[0])))
+	if (path && (track = path_to_bin(path, argv[0])))
 	{
 		run_exe(track, argv, list);
 		free(track);
 	}
 	else
 	{
-		ft_putstr("nea\n");
+		ft_putstr("minishell: command not found: ");
+		ft_putstr(argv[0]);
+		ft_putstr("\n");
 	}
 }
 
@@ -67,28 +71,42 @@ t_lst	*env_com(char *av, t_lst *list)
 	char **argv;
 	int	i;
 
-	i = 0;
 	path = ft_strsplit(find_var(list, "PATH"), ':');
 	argv = ft_strsplit(av, ' ');
-	if (!check_path(argv[0]))
+	/*
+	i = 0;
+	while (argv[i])
 	{
-		if (ft_strcmp(argv[0], "cd") == 0)
+		ft_putchar('|');
+		ft_putstr(argv[i]);
+		ft_putstr("|  - ");
+		ft_putnbr(i);
+		ft_putchar('\n');
+		i++;
+	}
+	*/
+	if (argv[0])
+	{
+		if (!check_path(argv[0]))
 		{
-			list = cd_check(argv, list);
-		}
-		else if (ft_strcmp(argv[0], "setenv") == 0 || \
-					ft_strcmp(argv[0], "unsetenv") == 0)
-		{
-			list = setenv_check(argv, list);
+			if (ft_strcmp(argv[0], "cd") == 0)
+			{
+				list = cd_check(argv, list);
+			}
+			else if (ft_strcmp(argv[0], "setenv") == 0 || \
+						ft_strcmp(argv[0], "unsetenv") == 0)
+			{
+				list = setenv_check(argv, list);
+			}
+			else
+			{
+				run_command(argv, path, list);
+			}
 		}
 		else
 		{
-			run_command(argv, path, list);
+			list = to_file_or_dir(argv, path, list);
 		}
-	}
-	else
-	{
-		list = to_file_or_dir(argv, path, list);
 	}
 	del_double_arr(path);
 	del_double_arr(argv);

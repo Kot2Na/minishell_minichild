@@ -6,7 +6,7 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/08 04:41:11 by crycherd          #+#    #+#             */
-/*   Updated: 2020/01/28 22:52:45 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/01/29 21:38:21 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISH_H
 
 #include "libft.h"
+#include "signal.h"
 #include "sys/wait.h"
 #include "sys/types.h"
 #include "sys/stat.h"
@@ -25,6 +26,8 @@ typedef struct		s_lst
 }					t_lst;
 
 typedef struct stat t_stat;
+
+pid_t				kill_pid;
 
 t_lst				*new_lst(char *content);
 t_lst				*cnvrt_to_lst(char **array);
@@ -41,6 +44,7 @@ char				*join_lst_to_path(t_lst *list);
 char				**cnvrt_to_arr(t_lst *list);
 char				*join_three(char *fr, char *sc, char *th);
 char				*insert_var(char *str, t_lst *list);
+char				*del_spaces(char *str);
 void				print_env(t_lst *list);
 void				to_end(t_lst **head, t_lst *nw);
 void				lst_del(t_lst *head);

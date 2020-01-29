@@ -6,7 +6,7 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 19:52:11 by crycherd          #+#    #+#             */
-/*   Updated: 2020/01/27 02:53:08 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/01/29 22:00:10 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,11 @@ t_lst	*change_pwd(char *pwd, t_lst *list)
 	if (!(stat(new_pwd, &file)))
 	{
 		if (S_ISDIR(file.st_mode) == 0)
-			ft_putstr("It is file\n");
+		{		
+			ft_putstr("cd : not a directory: ");
+			//ft_putstr(new_pwd);
+			ft_putstr("\n");
+		}
 		else
 		{
 			old_pwd = ft_strdup(find_var(list, "PWD"));
@@ -33,7 +37,11 @@ t_lst	*change_pwd(char *pwd, t_lst *list)
 		}
 	}
 	else
-		ft_putstr("File or dir not exist\n");
+	{
+		ft_putstr("cd : no such file or directory: ");
+		//ft_putstr(new_pwd);
+		ft_putstr("\n");
+	}
 	free(new_pwd);
 	return (list);
 }
