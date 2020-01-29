@@ -6,15 +6,16 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 21:03:32 by crycherd          #+#    #+#             */
-/*   Updated: 2020/01/28 15:08:33 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/01/29 22:21:38 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minish.h"
 
-char *join_three(char *fr, char *sc, char *th)
+char	*join_three(char *fr, char *sc, char *th)
 {
-	char *box;
+	char	*box;
+
 	box = NULL;
 	if (fr && sc && th)
 	{
@@ -25,10 +26,10 @@ char *join_three(char *fr, char *sc, char *th)
 	return (box);
 }
 
-char *join_lst_to_path(t_lst *list)
+char	*join_lst_to_path(t_lst *list)
 {
-	char *sub;
-	char *str;
+	char	*sub;
+	char	*str;
 
 	str = ft_strdup("/");
 	if (list)
@@ -46,14 +47,14 @@ char *join_lst_to_path(t_lst *list)
 	return (str);
 }
 
-void del_double_arr(char **arr)
+void	del_double_arr(char **arr)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (arr)
 	{
-		while(arr[i])
+		while (arr[i])
 		{
 			free(arr[i]);
 			i++;
@@ -62,9 +63,9 @@ void del_double_arr(char **arr)
 	}
 }
 
-int	check_path(char *str)
+int		check_path(char *str)
 {
-	int i;
+	int	i;
 
 	if (ft_strcmp(str, ".") == 0)
 		return (1);
@@ -80,9 +81,9 @@ int	check_path(char *str)
 	return (0);
 }
 
-int count_list(t_lst *list)
+int		count_list(t_lst *list)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (list)
@@ -93,9 +94,9 @@ int count_list(t_lst *list)
 	return (i);
 }
 
-int	count_arr(char **arr)
+int		count_arr(char **arr)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (arr)

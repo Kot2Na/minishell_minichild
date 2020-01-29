@@ -6,14 +6,13 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 19:57:55 by crycherd          #+#    #+#             */
-/*   Updated: 2020/01/29 21:54:06 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/01/29 22:23:05 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minish.h"
-#include "stdio.h"
 
-void run_exe(char *path, char **argv, t_lst *list)
+void	run_exe(char *path, char **argv, t_lst *list)
 {
 	pid_t	pid;
 	char	**env;
@@ -32,7 +31,7 @@ void run_exe(char *path, char **argv, t_lst *list)
 	del_double_arr(env);
 }
 
-void	run_command(char **argv, char **path,  t_lst *list)
+void	run_command(char **argv, char **path, t_lst *list)
 {
 	char	*track;
 
@@ -67,9 +66,9 @@ t_lst	*to_file_or_dir(char **argv, char **path, t_lst *list)
 
 t_lst	*env_com(char *av, t_lst *list)
 {
-	char **path;
-	char **argv;
-	int	i;
+	char	**path;
+	char	**argv;
+	int		i;
 
 	path = ft_strsplit(find_var(list, "PATH"), ':');
 	argv = ft_strsplit(av, ' ');

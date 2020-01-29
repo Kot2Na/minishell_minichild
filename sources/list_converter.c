@@ -6,7 +6,7 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 22:59:24 by crycherd          #+#    #+#             */
-/*   Updated: 2020/01/26 20:51:28 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/01/29 22:16:58 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,15 @@ t_lst	*cnvrt_to_lst(char **array)
 			to_end(&list, new_lst(array[i]));
 			i++;
 		}
-	}	
+	}
 	return (list);
 }
 
 char	**cnvrt_to_arr(t_lst *list)
 {
-	char **result;
-	int i;
-	int n;
+	char	**result;
+	int		i;
+	int		n;
 
 	i = 0;
 	result = NULL;

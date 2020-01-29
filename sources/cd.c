@@ -6,11 +6,21 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 19:52:11 by crycherd          #+#    #+#             */
-/*   Updated: 2020/01/29 22:00:10 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/01/29 23:44:01 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minish.h"
+
+void	print_error(char *name, char *text, char *com)
+{
+	ft_putstr(name);
+	ft_putstr(": ");
+	ft_putstr(text);
+	ft_putstr(": ");
+	ft_putstr(com);	
+	ft_putstr("\n");
+}
 
 t_lst	*change_pwd(char *pwd, t_lst *list)
 {
@@ -22,7 +32,7 @@ t_lst	*change_pwd(char *pwd, t_lst *list)
 	if (!(stat(new_pwd, &file)))
 	{
 		if (S_ISDIR(file.st_mode) == 0)
-		{		
+		{
 			ft_putstr("cd : not a directory: ");
 			//ft_putstr(new_pwd);
 			ft_putstr("\n");
@@ -67,8 +77,8 @@ char	*prepare_to_change(char **argv, t_lst *list)
 	char	**path_arr;
 	char	**pwd_arr;
 	t_lst	*pwd_list;
-	char 	*result;
-	
+	char	*result;
+
 	pwd_arr = ft_strsplit(find_var(list, "PWD"), '/');
 	path_arr = ft_strsplit(argv[1], '/');
 	pwd_list = cnvrt_to_lst(pwd_arr);

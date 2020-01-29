@@ -6,20 +6,20 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/08 04:39:22 by crycherd          #+#    #+#             */
-/*   Updated: 2020/01/29 21:54:49 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/01/29 22:23:22 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minish.h"
 
-int	minishell(t_lst *list)
+int		minishell(t_lst *list)
 {
 	int		i;
 	char	*line;
 	char	*save;
 	char	**arr;
 
-	while(1)
+	while (1)
 	{
 		ft_putstr("./minishell");
 		ft_putstr("->");
@@ -51,18 +51,18 @@ int	minishell(t_lst *list)
 	return (0);
 }
 
-void kill_proc(int sig)
+void	kill_proc(int sig)
 {
 	if (kill_pid != 0)
 	{
 		if (kill(kill_pid, sig) == 0)
 		{
 			kill_pid = 0;
-		}	
+		}
 	}
 }
 
-int main(int ac, char **av, char **env)
+int		main(int ac, char **av, char **env)
 {
 	t_lst *list;
 

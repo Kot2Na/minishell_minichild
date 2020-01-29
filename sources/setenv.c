@@ -6,7 +6,7 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 19:10:04 by crycherd          #+#    #+#             */
-/*   Updated: 2020/01/28 23:22:42 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/01/29 22:21:01 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ t_lst	*ft_unsetenv(t_lst *list, char *name)
 			change = del->next;
 			free(del->data);
 			free(del);
-			return(change);
+			return (change);
 		}
 		else
 		{

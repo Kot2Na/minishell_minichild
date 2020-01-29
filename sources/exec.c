@@ -6,7 +6,7 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 20:39:09 by crycherd          #+#    #+#             */
-/*   Updated: 2020/01/24 20:58:23 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/01/29 22:16:25 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int		check_exist(char **path, char *com)
 {
-	int i;
-	int	result;
-	char *box;
+	int		i;
+	int		result;
+	char	*box;
 
 	i = 0;
 	result = 0;
@@ -35,10 +35,10 @@ int		check_exist(char **path, char *com)
 	return (result);
 }
 
-char		*path_to_bin(char **path, char *com)
+char	*path_to_bin(char **path, char *com)
 {
-	int i;
-	char *box;
+	int		i;
+	char	*box;
 
 	i = 0;
 	while (path[i])

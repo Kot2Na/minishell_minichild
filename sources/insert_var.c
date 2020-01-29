@@ -6,7 +6,7 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 19:10:04 by crycherd          #+#    #+#             */
-/*   Updated: 2020/01/29 21:52:18 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/01/30 00:00:29 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,10 @@ char	*tilde_exp(char *str, int i, t_lst *list)
 		if (str[i + 1] == '+')
 			return (join_three(str, find_var(list, "PWD"), end));
 		if (str[i + 1] == '-')
-			return (join_three(str, find_var(list, "OLDPWD"), end));	
+			return (join_three(str, find_var(list, "OLDPWD"), end));
 	}
 	end = str + i + 1;
-	return (join_three(str, find_var(list, "HOME"), end));	
+	return (join_three(str, find_var(list, "HOME"), end));
 }
 
 char	*insertion(char *str, t_lst *list)
@@ -103,15 +103,27 @@ char	*del_spaces(char *str)
 		while (str[i])
 		{
 			while (str[i] && (str[i] == ' ' || str[i] == '\t'))
-				str++;
+				i++;
 			while (str[i] && (str[i] != ' ' && str[i] != '\t'))
 			{
+				if (str[i] == '"')
+				{
+					result[j] = str[i];
+					i++;
+					j++;
+					while (str[i] != '"')
+					{
+						result[j] = str[i];
+						i++;
+						j++;
+					}
+				}
 				result[j] = str[i];
 				i++;
 				j++;
 			}
 			while (str[i] && (str[i] == ' ' || str[i] == '\t'))
-				str++;
+				i++;
 			if (str[i])
 			{
 				result[j] = ' ';
