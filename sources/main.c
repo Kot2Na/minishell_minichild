@@ -6,7 +6,7 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/08 04:39:22 by crycherd          #+#    #+#             */
-/*   Updated: 2020/01/30 21:50:13 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/01/31 00:20:51 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,22 @@ int		minishell(t_lst *list)
 		ft_putstr("->");
 		if ((i = get_next_line(0, &line)))
 		{
-			save = line;
-			line = del_spaces(line);
-			free(save);
 			arr = ft_strsplit(line, ';');
 			i = 0;
 			while (arr[i])
 			{
+				save = arr[i];
+				arr[i] = insert_var(arr[i], list);
+				free(save);
+				save = arr[i];
+				arr[i] = del_spaces(arr[i]);
+				free(save);
 				if (ft_strcmp("exit", arr[i]) == 0)
 				{
 					free(line);
 					del_double_arr(arr);
 					return (0);
 				}
-				save = arr[i];
-				arr[i] = insert_var(arr[i], list);
-				free(save);
 				list = env_com(arr[i], list);
 				i++;
 			}
