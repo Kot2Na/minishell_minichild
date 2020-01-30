@@ -6,7 +6,7 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 19:10:04 by crycherd          #+#    #+#             */
-/*   Updated: 2020/01/29 22:21:01 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/01/30 23:54:39 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,7 @@ t_lst	*setenv_check(char **argv, t_lst *list)
 			}
 		}
 		else
-		{
 			list = ft_unsetenv(list, argv[i]);
-		}
 		i++;
 	}
 	return (list);

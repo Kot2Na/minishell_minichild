@@ -6,7 +6,7 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 19:52:11 by crycherd          #+#    #+#             */
-/*   Updated: 2020/01/30 20:47:18 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/01/31 00:12:08 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,14 @@ t_lst	*change_pwd(char *pwd, t_lst *list)
 {
 	char	*old_pwd;
 	char	*new_pwd;
-
-	old_pwd = ft_strdup(find_var(list, "PWD"));
+	
+	if (find_var(list, "PWD"))
+		old_pwd = ft_strdup(find_var(list, "PWD"));
+	else
+	{
+		old_pwd = ft_strnew(BUFSIZE + 1);
+		old_pwd = getcwd(old_pwd, BUFSIZE);
+	}
 	new_pwd = ft_strdup(pwd);
 	list = ft_setenv(list, "PWD", new_pwd);
 	list = ft_setenv(list, "OLDPWD", old_pwd);
@@ -73,15 +79,25 @@ t_lst	*create_new_pwd(t_lst *pwd_list, char **path)
 	return (pwd_list);
 }
 
-char	*prepare_to_change(char **argv, t_lst *list)
+char	*prepare_to_change(char *argv, t_lst *list)
 {
 	char	**path_arr;
 	char	**pwd_arr;
 	t_lst	*pwd_list;
 	char	*result;
 
-	pwd_arr = ft_strsplit(find_var(list, "PWD"), '/');
-	path_arr = ft_strsplit(argv[1], '/');
+	if (find_var(list, "PWD"))
+	{
+		pwd_arr = ft_strsplit(find_var(list, "PWD"), '/');
+	}
+	else
+	{
+		result = ft_strnew(BUFSIZE + 1);
+		result = getcwd(result, BUFSIZE);
+		pwd_arr = ft_strsplit(result, '/');
+		free(result);
+	}
+	path_arr = ft_strsplit(argv, '/');
 	pwd_list = cnvrt_to_lst(pwd_arr);
 	pwd_list = create_new_pwd(pwd_list, path_arr);
 	result = join_lst_to_path(pwd_list);
@@ -102,10 +118,15 @@ t_lst	*cd_check(char **argv, t_lst *list)
 		if (argv[1][0] == '/')
 			list = check_pwd(argv[1], list, argv[1]);
 		else if (argv[1][0] == '-' && argv[1][1] == '\0')
-			list = change_pwd(find_var(list, "OLDPWD"), list);
+		{
+			if (find_var(list, "OLDPWD"))
+				list = change_pwd(find_var(list, "OLDPWD"), list);
+			else
+				ft_putstr("You have deleted OLDPWD :c\n");
+		}
 		else
 		{
-			new_pwd = prepare_to_change(argv, list);
+			new_pwd = prepare_to_change(argv[1], list);
 			list = check_pwd(new_pwd, list, argv[1]);
 			free(new_pwd);
 		}

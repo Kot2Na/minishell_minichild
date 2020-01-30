@@ -6,7 +6,7 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 19:57:55 by crycherd          #+#    #+#             */
-/*   Updated: 2020/01/30 20:49:13 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/01/31 00:12:05 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	run_exe(char *path, char **argv, t_lst *list)
 void	run_command(char **argv, char **path, t_lst *list)
 {
 	char	*track;
+	t_stat	file;
 
 	if (path && (track = path_to_bin(path, argv[0])))
 	{
@@ -41,26 +42,44 @@ void	run_command(char **argv, char **path, t_lst *list)
 		free(track);
 	}
 	else
-		print_error("minishell", "command not found", argv[0]);
+	{
+		track = prepare_to_change(argv[0], list);
+		if (!(stat(track, &file)) && S_ISDIR(file.st_mode))
+			list = change_pwd(track, list);
+		else
+			print_error("minishell", "command not found", argv[0]);
+		free(track);
+	}
 }
 
 t_lst	*to_file_or_dir(char **argv, char **path, t_lst *list)
 {
 	t_stat	file;
+	char	*pwd;
 
-	if (!(stat(argv[0], &file)))
+	if (argv[0][0] == '/')
+		pwd = ft_strdup(argv[0]);
+	else
+		pwd = prepare_to_change(argv[0], list);
+	if (!(stat(pwd, &file)))
 	{
 		if (S_ISDIR(file.st_mode) == 0)
+			run_exe(pwd, argv, list);
+		else
 		{
-			run_exe(argv[0], argv, list);
+			if (count_arr(argv) == 1)
+				list = check_pwd(pwd, list, argv[0]);
+			else
+				print_error("minishell", "permission denied", argv[0]);
 		}
 	}
 	else
 		print_error("minishell", "file or dir not exist", argv[0]);
+	free(pwd);
 	return (list);
 }
 
-int	check_quote(char *str)
+int		check_quote(char *str)
 {
 	int i;
 
@@ -166,23 +185,15 @@ t_lst	*env_com(char *av, t_lst *list)
 		if (!check_path(argv[0]))
 		{
 			if (ft_strcmp(argv[0], "cd") == 0)
-			{
 				list = cd_check(argv, list);
-			}
 			else if (ft_strcmp(argv[0], "setenv") == 0 || \
 						ft_strcmp(argv[0], "unsetenv") == 0)
-			{
 				list = setenv_check(argv, list);
-			}
 			else
-			{
 				run_command(argv, path, list);
-			}
 		}
 		else
-		{
 			list = to_file_or_dir(argv, path, list);
-		}
 	}
 	del_double_arr(path);
 	del_double_arr(argv);

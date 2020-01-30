@@ -6,7 +6,7 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/08 04:41:11 by crycherd          #+#    #+#             */
-/*   Updated: 2020/01/30 20:40:28 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/01/31 00:12:06 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 #include "sys/wait.h"
 #include "sys/types.h"
 #include "sys/stat.h"
+
+#define BUFSIZE 255
 
 typedef struct		s_lst
 {
@@ -46,6 +48,7 @@ char				**cnvrt_to_arr(t_lst *list);
 char				*join_three(char *fr, char *sc, char *th);
 char				*insert_var(char *str, t_lst *list);
 char				*del_spaces(char *str);
+char				*prepare_to_change(char *argv, t_lst *list);
 void				print_env(t_lst *list);
 void				print_error(char *name, char *text, char *com);
 void				to_end(t_lst **head, t_lst *nw);
