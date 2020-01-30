@@ -6,7 +6,7 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 19:10:04 by crycherd          #+#    #+#             */
-/*   Updated: 2020/01/30 00:00:29 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/01/30 19:53:48 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ char	*del_spaces(char *str)
 					result[j] = str[i];
 					i++;
 					j++;
-					while (str[i] != '"')
+					while (str[i] && str[i] != '"')
 					{
 						result[j] = str[i];
 						i++;

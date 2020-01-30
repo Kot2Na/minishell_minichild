@@ -6,7 +6,7 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 19:52:11 by crycherd          #+#    #+#             */
-/*   Updated: 2020/01/29 23:44:01 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/01/30 20:47:18 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,26 @@ void	print_error(char *name, char *text, char *com)
 	ft_putstr(": ");
 	ft_putstr(text);
 	ft_putstr(": ");
-	ft_putstr(com);	
+	ft_putstr(com);
 	ft_putstr("\n");
 }
 
 t_lst	*change_pwd(char *pwd, t_lst *list)
+{
+	char	*old_pwd;
+	char	*new_pwd;
+
+	old_pwd = ft_strdup(find_var(list, "PWD"));
+	new_pwd = ft_strdup(pwd);
+	list = ft_setenv(list, "PWD", new_pwd);
+	list = ft_setenv(list, "OLDPWD", old_pwd);
+	chdir(new_pwd);
+	free(old_pwd);
+	free(new_pwd);
+	return (list);
+}
+
+t_lst	*check_pwd(char *pwd, t_lst *list, char *comm)
 {
 	t_stat	file;
 	char	*old_pwd;
@@ -32,26 +47,12 @@ t_lst	*change_pwd(char *pwd, t_lst *list)
 	if (!(stat(new_pwd, &file)))
 	{
 		if (S_ISDIR(file.st_mode) == 0)
-		{
-			ft_putstr("cd : not a directory: ");
-			//ft_putstr(new_pwd);
-			ft_putstr("\n");
-		}
+			print_error("cd", "not a directory", comm);
 		else
-		{
-			old_pwd = ft_strdup(find_var(list, "PWD"));
-			list = ft_setenv(list, "PWD", new_pwd);
-			list = ft_setenv(list, "OLDPWD", old_pwd);
-			chdir(new_pwd);
-			free(old_pwd);
-		}
+			list = change_pwd(new_pwd, list);
 	}
 	else
-	{
-		ft_putstr("cd : no such file or directory: ");
-		//ft_putstr(new_pwd);
-		ft_putstr("\n");
-	}
+		print_error("cd", "no such file or directory", comm);
 	free(new_pwd);
 	return (list);
 }
@@ -99,13 +100,13 @@ t_lst	*cd_check(char **argv, t_lst *list)
 	else if (count_arr(argv) == 2)
 	{
 		if (argv[1][0] == '/')
-			list = change_pwd(argv[1], list);
+			list = check_pwd(argv[1], list, argv[1]);
 		else if (argv[1][0] == '-' && argv[1][1] == '\0')
 			list = change_pwd(find_var(list, "OLDPWD"), list);
 		else
 		{
 			new_pwd = prepare_to_change(argv, list);
-			list = change_pwd(new_pwd, list);
+			list = check_pwd(new_pwd, list, argv[1]);
 			free(new_pwd);
 		}
 	}

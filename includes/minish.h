@@ -6,7 +6,7 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/08 04:41:11 by crycherd          #+#    #+#             */
-/*   Updated: 2020/01/29 21:38:21 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/01/30 20:40:28 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_lst				*new_lst(char *content);
 t_lst				*cnvrt_to_lst(char **array);
 t_lst				*env_com(char *av, t_lst *list);
 t_lst				*change_pwd(char *var, t_lst *list);
+t_lst				*check_pwd(char *var, t_lst *list, char *comm);
 t_lst				*cd_check(char **argv, t_lst *list);
 t_lst				*setenv_check(char **argv, t_lst *list);
 t_lst				*find_env(t_lst *list, char *name);
@@ -46,6 +47,7 @@ char				*join_three(char *fr, char *sc, char *th);
 char				*insert_var(char *str, t_lst *list);
 char				*del_spaces(char *str);
 void				print_env(t_lst *list);
+void				print_error(char *name, char *text, char *com);
 void				to_end(t_lst **head, t_lst *nw);
 void				lst_del(t_lst *head);
 void				lst_del_last(t_lst **head);
