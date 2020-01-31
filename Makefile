@@ -6,7 +6,7 @@
 #    By: crycherd <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/05 20:26:26 by crycherd          #+#    #+#              #
-#    Updated: 2020/02/01 00:22:20 by crycherd         ###   ########.fr        #
+#    Updated: 2020/02/01 01:28:45 by crycherd         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SEDULCNIS	=	-I ./includes
 SEDULCNI	=	./includes
 SEDULCNID	=	$(SEDULCNI)/libft.h $(SEDULCNI)/minish.h
 
-SOURCE	=	main.c list.c exec.c useful_func.c env.c list_converter.c cd.c setenv.c insert_var.c misc_deletions.c misc_prints.c misc_chekc.c
+SOURCE	=	main.c list.c exec.c useful_func.c env.c list_converter.c cd.c setenv.c insert_var.c misc_deletions.c misc_prints.c misc_chekc.c completion.c
 
 RIDJBO	=	objects
 RIDCRS	=	sources

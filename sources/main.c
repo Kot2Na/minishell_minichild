@@ -6,12 +6,11 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/08 04:39:22 by crycherd          #+#    #+#             */
-/*   Updated: 2020/02/01 00:38:27 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/02/01 01:27:40 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minish.h"
-#include <readline/readline.h>
 
 int		minishell(t_lst *list, char *line)
 {
@@ -43,11 +42,11 @@ int		minishell(t_lst *list, char *line)
 
 void	kill_proc(int sig)
 {
-	if (sig == SIGINT && kill_pid != 0)
+	if (sig == SIGINT && g_kill_pid != 0)
 	{
-		if (kill(kill_pid, sig) == 0)
+		if (kill(g_kill_pid, sig) == 0)
 		{
-			kill_pid = 0;
+			g_kill_pid = 0;
 		}
 		return ;
 	}
@@ -77,14 +76,15 @@ int		main(int ac, char **av, char **env)
 	t_lst	*list;
 	char	*line;
 
-	kill_pid = 0;
+	g_kill_pid = 0;
 	signal(SIGINT, kill_proc);
 	list = cnvrt_to_lst(env);
 	list = shell_lvl(list);
+	rl_attempted_completion_function = completion;
 	while (1 && ac && av)
-	{
 		if ((line = readline("^_^ ->")))
 		{
+			add_history(line);
 			if (!check_parse(line, ';'))
 			{
 				if (minishell(list, line))
@@ -95,7 +95,6 @@ int		main(int ac, char **av, char **env)
 			}
 			free(line);
 		}
-	}
 	lst_del(list);
 	return (0);
 }

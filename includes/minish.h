@@ -6,20 +6,21 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/08 04:41:11 by crycherd          #+#    #+#             */
-/*   Updated: 2020/01/31 21:25:04 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/02/01 01:59:12 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISH_H
 # define MINISH_H
 
-#include "libft.h"
-#include "signal.h"
-#include "sys/wait.h"
-#include "sys/types.h"
-#include "sys/stat.h"
-
-#define BUFSIZE 255
+# include "libft.h"
+# include "signal.h"
+# include "sys/wait.h"
+# include "sys/types.h"
+# include "sys/stat.h"
+# include "readline/readline.h"
+# include "readline/history.h"
+# define BUFSIZE 255
 
 typedef struct		s_lst
 {
@@ -27,9 +28,9 @@ typedef struct		s_lst
 	struct s_lst	*next;
 }					t_lst;
 
-typedef struct stat t_stat;
+typedef struct stat	t_stat;
 
-pid_t				kill_pid;
+pid_t				g_kill_pid;
 
 t_lst				*ft_unsetenv(t_lst *list, char *name);
 t_lst				*find_env(t_lst *list, char *name);
@@ -69,5 +70,7 @@ int					check_parse(char *str, char c);
 int					check_quote(char *str);
 int					check_exist(char **path, char *com);
 
+char				**completion(const char *str, int a, int b);
+char				*generator(const char *str, int a);
 
 #endif

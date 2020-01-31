@@ -6,7 +6,7 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 20:39:09 by crycherd          #+#    #+#             */
-/*   Updated: 2020/02/01 00:25:22 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/02/01 01:16:05 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	run_exe(char *path, char **argv, t_lst *list)
 
 	env = cnvrt_to_arr(list);
 	pid = fork();
-	kill_pid = pid;
+	g_kill_pid = pid;
 	if (pid == 0)
 	{
 		execve(path, argv, env);
