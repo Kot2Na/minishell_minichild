@@ -6,7 +6,7 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/08 04:39:22 by crycherd          #+#    #+#             */
-/*   Updated: 2020/02/01 00:08:10 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/02/01 00:38:27 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,10 @@ void	kill_proc(int sig)
 		{
 			kill_pid = 0;
 		}
-		ft_putstr("\n");
 		return ;
 	}
+	ft_putstr("\n");
+	ft_putstr("^_^ ->");
 }
 
 t_lst	*shell_lvl(t_lst *list)
@@ -75,13 +76,12 @@ int		main(int ac, char **av, char **env)
 {
 	t_lst	*list;
 	char	*line;
-	int		i;
 
 	kill_pid = 0;
 	signal(SIGINT, kill_proc);
 	list = cnvrt_to_lst(env);
 	list = shell_lvl(list);
-	while (1)
+	while (1 && ac && av)
 	{
 		if ((line = readline("^_^ ->")))
 		{

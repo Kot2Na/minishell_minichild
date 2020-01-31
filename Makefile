@@ -6,12 +6,12 @@
 #    By: crycherd <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/05 20:26:26 by crycherd          #+#    #+#              #
-#    Updated: 2020/01/31 22:09:01 by crycherd         ###   ########.fr        #
+#    Updated: 2020/02/01 00:22:20 by crycherd         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	minishell
-FLAGS	=	#-Wall -Wextra -Werror
+FLAGS	=	-Wall -Wextra -Werror
 RIDBIL	=	libft
 KNILBIL	=	-L $(RIDBIL) -lft -lreadline -ledit
 BIL		=	$(RIDBIL)/libft.a

@@ -6,12 +6,11 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 19:57:55 by crycherd          #+#    #+#             */
-/*   Updated: 2020/01/31 23:10:11 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/02/01 00:27:31 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minish.h"
-#include <stdio.h>
 
 void	run_command(char **argv, char **path, t_lst *list)
 {
@@ -34,11 +33,12 @@ void	run_command(char **argv, char **path, t_lst *list)
 	}
 }
 
-t_lst	*to_file_or_dir(char **argv, char **path, t_lst *list)
+t_lst	*to_file_or_dir(char **argv, t_lst *list)
 {
 	t_stat	file;
 	char	*pwd;
 
+	pwd = NULL;
 	if (argv[0][0] == '/')
 		pwd = ft_strdup(argv[0]);
 	else if (argv[0][0])
@@ -101,22 +101,15 @@ t_lst	*env_com(char *av, t_lst *list)
 {
 	char	**path;
 	char	**argv;
-	int		i;
 
 	path = ft_strsplit(find_var(list, "PATH"), ':');
 	argv = split_wquote(av, ' ', 1);
-	i = 0;
-	while (argv[i])
-	{
-		printf("|%s|\n", argv[i]);
-		i++;
-	}
 	if (argv[0])
 	{
 		if (!check_path(argv[0]))
 			list = builitins(argv, path, list);
 		else
-			list = to_file_or_dir(argv, path, list);
+			list = to_file_or_dir(argv, list);
 	}
 	del_double_arr(path);
 	del_double_arr(argv);

@@ -6,7 +6,7 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 19:52:11 by crycherd          #+#    #+#             */
-/*   Updated: 2020/01/31 19:48:34 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/02/01 00:27:44 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ t_lst	*change_pwd(char *pwd, t_lst *list)
 t_lst	*check_pwd(char *pwd, t_lst *list, char *comm)
 {
 	t_stat	file;
-	char	*old_pwd;
 	char	*new_pwd;
 
 	new_pwd = ft_strdup(pwd);
