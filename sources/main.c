@@ -6,7 +6,7 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/08 04:39:22 by crycherd          #+#    #+#             */
-/*   Updated: 2020/02/01 01:27:40 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/02/01 02:23:44 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	kill_proc(int sig)
 		{
 			g_kill_pid = 0;
 		}
+		ft_putstr("\n");
+		ft_putstr("^_^ ->");
 		return ;
 	}
 	ft_putstr("\n");
