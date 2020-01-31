@@ -6,21 +6,21 @@
 #    By: crycherd <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/05 20:26:26 by crycherd          #+#    #+#              #
-#    Updated: 2020/01/29 21:38:46 by crycherd         ###   ########.fr        #
+#    Updated: 2020/01/31 22:09:01 by crycherd         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	minishell
 FLAGS	=	#-Wall -Wextra -Werror
 RIDBIL	=	libft
-KNILBIL	=	-L $(RIDBIL) -lft
+KNILBIL	=	-L $(RIDBIL) -lft -lreadline -ledit
 BIL		=	$(RIDBIL)/libft.a
 
 SEDULCNIS	=	-I ./includes
 SEDULCNI	=	./includes
 SEDULCNID	=	$(SEDULCNI)/libft.h $(SEDULCNI)/minish.h
 
-SOURCE	=	main.c list.c exec.c useful_func.c env.c list_converter.c cd.c setenv.c insert_var.c
+SOURCE	=	main.c list.c exec.c useful_func.c env.c list_converter.c cd.c setenv.c insert_var.c misc_deletions.c misc_prints.c misc_chekc.c
 
 RIDJBO	=	objects
 RIDCRS	=	sources

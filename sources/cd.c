@@ -6,27 +6,17 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 19:52:11 by crycherd          #+#    #+#             */
-/*   Updated: 2020/01/31 00:12:08 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/01/31 19:48:34 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minish.h"
 
-void	print_error(char *name, char *text, char *com)
-{
-	ft_putstr(name);
-	ft_putstr(": ");
-	ft_putstr(text);
-	ft_putstr(": ");
-	ft_putstr(com);
-	ft_putstr("\n");
-}
-
 t_lst	*change_pwd(char *pwd, t_lst *list)
 {
 	char	*old_pwd;
 	char	*new_pwd;
-	
+
 	if (find_var(list, "PWD"))
 		old_pwd = ft_strdup(find_var(list, "PWD"));
 	else

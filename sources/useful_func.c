@@ -6,7 +6,7 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 21:03:32 by crycherd          #+#    #+#             */
-/*   Updated: 2020/01/29 22:21:38 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/01/31 23:09:55 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,61 +24,6 @@ char	*join_three(char *fr, char *sc, char *th)
 		free(fr);
 	}
 	return (box);
-}
-
-char	*join_lst_to_path(t_lst *list)
-{
-	char	*sub;
-	char	*str;
-
-	str = ft_strdup("/");
-	if (list)
-	{
-		free(str);
-		str = ft_strdup("");
-		while (list)
-		{
-			sub = str;
-			str = join_three(str, "/", list->data);
-			free(sub);
-			list = list->next;
-		}
-	}
-	return (str);
-}
-
-void	del_double_arr(char **arr)
-{
-	int	i;
-
-	i = 0;
-	if (arr)
-	{
-		while (arr[i])
-		{
-			free(arr[i]);
-			i++;
-		}
-		free(arr);
-	}
-}
-
-int		check_path(char *str)
-{
-	int	i;
-
-	if (ft_strcmp(str, ".") == 0)
-		return (1);
-	if (ft_strcmp(str, "..") == 0)
-		return (1);
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '/')
-			return (1);
-		i++;
-	}
-	return (0);
 }
 
 int		count_list(t_lst *list)
@@ -105,4 +50,43 @@ int		count_arr(char **arr)
 			i++;
 	}
 	return (i);
+}
+
+char	**split_wquote(char *str, char c, int k)
+{
+	t_lst	*argv;
+	char	**result;
+	int		i;
+	int		flag;
+
+	i = 0;
+	argv = NULL;
+	flag = 1;
+	while (str[i])
+	{
+		if (str[i] && str[i] == c && flag)
+		{
+			add_to_list(str, i, &argv, k);
+			str += i + 1;
+			i = 0;
+		}
+		if (str[i] == '"')
+			change_flag(&flag);
+		i++;
+	}
+	add_to_list(str, i, &argv, k);
+	result = cnvrt_to_arr(argv);
+	lst_del(argv);
+	return (result);
+}
+
+void	change_flag(int *flag)
+{
+	if (flag)
+	{
+		if (*flag == 1)
+			*flag = 0;
+		else
+			*flag = 1;
+	}
 }

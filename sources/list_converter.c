@@ -6,7 +6,7 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 22:59:24 by crycherd          #+#    #+#             */
-/*   Updated: 2020/01/29 22:16:58 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/01/31 19:54:04 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,26 @@ char	**cnvrt_to_arr(t_lst *list)
 		result[i] = NULL;
 	}
 	return (result);
+}
+
+void	lst_del_last(t_lst **head)
+{
+	t_lst *iter;
+	t_lst *root;
+
+	if (head && *head)
+	{
+		iter = *head;
+		root = *head;
+		while (iter->next)
+			iter = iter->next;
+		while (root != iter && root->next != iter)
+			root = root->next;
+		free(iter->data);
+		free(iter);
+		if (iter != root)
+			root->next = NULL;
+		else
+			*head = NULL;
+	}
 }

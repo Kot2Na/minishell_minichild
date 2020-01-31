@@ -6,7 +6,7 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 19:10:04 by crycherd          #+#    #+#             */
-/*   Updated: 2020/01/30 23:54:39 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/01/31 23:03:06 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,6 @@ t_lst	*find_env(t_lst *list, char *name)
 		}
 	}
 	return (iter);
-}
-
-void	print_env(t_lst *list)
-{
-	if (list)
-	{
-		while (list)
-		{
-			ft_putstr(list->data);
-			ft_putchar('\n');
-			list = list->next;
-		}
-	}
 }
 
 t_lst	*setenv_check(char **argv, t_lst *list)

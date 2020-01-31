@@ -6,7 +6,7 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 20:39:09 by crycherd          #+#    #+#             */
-/*   Updated: 2020/01/29 22:16:25 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/01/31 19:51:22 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,44 @@ char	*path_to_bin(char **path, char *com)
 		i++;
 	}
 	return (NULL);
+}
+
+char	*join_lst_to_path(t_lst *list)
+{
+	char	*sub;
+	char	*str;
+
+	str = ft_strdup("/");
+	if (list)
+	{
+		free(str);
+		str = ft_strdup("");
+		while (list)
+		{
+			sub = str;
+			str = join_three(str, "/", list->data);
+			free(sub);
+			list = list->next;
+		}
+	}
+	return (str);
+}
+
+void	run_exe(char *path, char **argv, t_lst *list)
+{
+	pid_t	pid;
+	char	**env;
+	int		status;
+	int		i;
+
+	env = cnvrt_to_arr(list);
+	pid = fork();
+	kill_pid = pid;
+	if (pid == 0)
+	{
+		execve(path, argv, env);
+		exit(0);
+	}
+	waitpid(pid, &status, 0);
+	del_double_arr(env);
 }
