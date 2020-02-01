@@ -6,7 +6,7 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 19:57:55 by crycherd          #+#    #+#             */
-/*   Updated: 2020/02/01 01:15:30 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/02/01 17:47:03 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_lst	*to_file_or_dir(char **argv, t_lst *list)
 
 	pwd = NULL;
 	if (argv[0][0] == '/')
-		pwd = ft_strdup(argv[0]);
+		pwd = del_double_char(argv[0], '/');
 	else if (argv[0][0])
 		pwd = prepare_to_change(argv[0], list);
 	if (!(stat(pwd, &file)))

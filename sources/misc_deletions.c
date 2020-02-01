@@ -6,17 +6,11 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 18:58:47 by crycherd          #+#    #+#             */
-/*   Updated: 2020/02/01 00:08:49 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/02/01 17:47:58 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minish.h"
-
-void	ins_char_and_inc(char *str, int *i, char c)
-{
-	str[*i] = c;
-	*i += 1;
-}
 
 int		miss_spaces(char *str, int i)
 {
@@ -87,4 +81,32 @@ char	*del_quotes(char *str)
 		i++;
 	}
 	return (copy);
+}
+
+char	*del_double_char(char *str, char c)
+{
+	char	*result;
+	int		flag;
+	int		i;
+	int		j;
+
+	result = NULL;
+	if (str)
+	{
+		i = 0;
+		j = 0;
+		flag = 1;
+		result = ft_strnew(ft_strlen(str) + 1);
+		while (str[i])
+		{
+			if (str[i] != c && flag == 0)
+				change_flag(&flag);
+			if (str[i] != c || flag)
+				ins_char_and_inc(result, &j, str[i]);
+			if (str[i] == c && flag)
+				change_flag(&flag);
+			i++;
+		}
+	}
+	return (result);
 }

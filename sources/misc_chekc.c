@@ -6,7 +6,7 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 18:51:37 by crycherd          #+#    #+#             */
-/*   Updated: 2020/01/31 19:54:55 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/02/01 17:49:47 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,10 @@ int		check_str(char *str)
 		i++;
 	}
 	return (0);
+}
+
+void	ins_char_and_inc(char *str, int *i, char c)
+{
+	str[*i] = c;
+	*i += 1;
 }

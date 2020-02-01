@@ -6,7 +6,7 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/26 19:10:04 by crycherd          #+#    #+#             */
-/*   Updated: 2020/01/31 23:03:06 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/02/01 17:06:52 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,31 +32,42 @@ t_lst	*find_env(t_lst *list, char *name)
 	return (iter);
 }
 
+t_lst	*add_or_del_var(char *str, t_lst *list)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '=')
+		{
+			str[i] = '\0';
+			list = ft_setenv(list, str, str + i + 1);
+			break ;
+		}
+		i++;
+	}
+	return (list);
+}
+
 t_lst	*setenv_check(char **argv, t_lst *list)
 {
 	int i;
-	int j;
 
 	i = 1;
-	while (argv[i])
+	if (count_arr(argv) > 1)
 	{
-		j = 0;
-		if (ft_strcmp(argv[0], "setenv") == 0)
+		while (argv[i])
 		{
-			while (argv[i][j])
-			{
-				if (argv[i][j] == '=')
-				{
-					argv[i][j] = '\0';
-					list = ft_setenv(list, argv[i], argv[i] + j + 1);
-				}
-				j++;
-			}
+			if (ft_strcmp(argv[0], "setenv") == 0)
+				list = add_or_del_var(argv[i], list);
+			else
+				list = ft_unsetenv(list, argv[i]);
+			i++;
 		}
-		else
-			list = ft_unsetenv(list, argv[i]);
-		i++;
 	}
+	else
+		ft_putstr("minishell: not enough argument\n");
 	return (list);
 }
 

@@ -6,7 +6,7 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 19:52:11 by crycherd          #+#    #+#             */
-/*   Updated: 2020/02/01 00:27:44 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/02/01 17:46:02 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_lst	*check_pwd(char *pwd, t_lst *list, char *comm)
 	t_stat	file;
 	char	*new_pwd;
 
-	new_pwd = ft_strdup(pwd);
+	new_pwd = del_double_char(pwd, '/');
 	if (!(stat(new_pwd, &file)))
 	{
 		if (S_ISDIR(file.st_mode) == 0)

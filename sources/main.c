@@ -6,7 +6,7 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/08 04:39:22 by crycherd          #+#    #+#             */
-/*   Updated: 2020/02/01 02:23:44 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/02/01 17:57:16 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,21 @@ int		minishell(t_lst *list, char *line)
 
 void	kill_proc(int sig)
 {
-	if (sig == SIGINT && g_kill_pid != 0)
+	if (g_kill_pid != 0)
 	{
-		if (kill(g_kill_pid, sig) == 0)
+		if (kill(g_kill_pid, sig) == 0)i
 		{
 			g_kill_pid = 0;
+			ft_putstr("\n");
+			ft_putstr("^_^ ->");
 		}
-		ft_putstr("\n");
-		ft_putstr("^_^ ->");
 		return ;
 	}
-	ft_putstr("\n");
-	ft_putstr("^_^ ->");
+	else
+	{
+		ft_putstr("\n");
+		ft_putstr("^_^ ->");
+	}
 }
 
 t_lst	*shell_lvl(t_lst *list)
@@ -61,6 +64,7 @@ t_lst	*shell_lvl(t_lst *list)
 	int		i;
 	char	*str;
 
+	g_kill_pid = 0;
 	i = 1;
 	if (find_var(list, "SHLVL"))
 	{
@@ -78,7 +82,6 @@ int		main(int ac, char **av, char **env)
 	t_lst	*list;
 	char	*line;
 
-	g_kill_pid = 0;
 	signal(SIGINT, kill_proc);
 	list = cnvrt_to_lst(env);
 	list = shell_lvl(list);
@@ -97,6 +100,8 @@ int		main(int ac, char **av, char **env)
 			}
 			free(line);
 		}
+		else
+			exit(write(1, "\b\bexit\n", 7));
 	lst_del(list);
 	return (0);
 }
