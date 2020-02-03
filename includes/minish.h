@@ -6,7 +6,7 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/08 04:41:11 by crycherd          #+#    #+#             */
-/*   Updated: 2020/02/01 01:59:12 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/02/01 17:50:35 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,9 @@ void				to_end(t_lst **head, t_lst *new);
 void				del_double_arr(char **arr);
 void				run_exe(char *path, char **argv, t_lst *list);
 void				add_to_list(char *str, int i, t_lst **list, int k);
+void				ins_char_and_inc(char *str, int *i, char c);
 char				**split_wquote(char *str, char c, int k);
+char				*del_double_char(char *str, char c);
 char				*join_three(char *fr, char *sc, char *th);
 char				*del_quotes(char *str);
 char				*del_spaces(char *str);

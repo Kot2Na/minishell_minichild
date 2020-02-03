@@ -6,7 +6,7 @@
 /*   By: crycherd <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/08 04:39:22 by crycherd          #+#    #+#             */
-/*   Updated: 2020/02/01 17:57:16 by crycherd         ###   ########.fr       */
+/*   Updated: 2020/02/01 17:49:25 by crycherd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,10 @@ void	kill_proc(int sig)
 {
 	if (g_kill_pid != 0)
 	{
-		if (kill(g_kill_pid, sig) == 0)i
-		{
+		if (kill(g_kill_pid, sig) == 0)
 			g_kill_pid = 0;
-			ft_putstr("\n");
-			ft_putstr("^_^ ->");
-		}
+		ft_putstr("\n");
+		ft_putstr("^_^ ->");
 		return ;
 	}
 	else
