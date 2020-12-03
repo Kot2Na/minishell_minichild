@@ -13,7 +13,7 @@
 NAME	=	minishell
 FLAGS	=	-Wall -Wextra -Werror
 RIDBIL	=	libft
-KNILBIL	=	-L $(RIDBIL) -lft -lreadline -ledit
+KNILBIL	=	-L $(RIDBIL) -lft -lreadline #-ledit
 BIL		=	$(RIDBIL)/libft.a
 
 SEDULCNIS	=	-I ./includes
